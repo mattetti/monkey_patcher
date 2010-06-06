@@ -1,0 +1,57 @@
+= monkey_patcher
+
+Dead simple - not so useful gem helping you keep track of your monkey patches.
+In other words, this gem lets you keep track of modifications made on some "base" code, classes/methods tempered with can be easily found and the modifying code can be spotted. 
+
+== Example:
+
+    require 'monkey_patcher'
+
+    # base code
+    class Foo
+      def bar; 'original Foo#bar'; end
+    end
+
+    # monkey patch #1
+    class Foo
+      include MonkeyPatcher
+      monkey_trace("Reopening Foo to add a couple methods necessary for the README",
+                    File.expand_path(__FILE__))
+  
+      def self.bar; 'class method bar'; end
+      def bar; 'modified Foo#bar'; end
+      def baz; 'added Foo#baz'; end
+    end
+
+    # monkey patch #2
+    class Foo
+      include MonkeyPatcher
+      monkey_trace("Just to show it works",
+                    File.expand_path(__FILE__))
+      def bar; 'patched another time'; end
+    end
+
+    puts "Foo was tempered" if Foo.monkey_patched?
+    puts Foo.patched_methods
+
+=== Output:
+
+    Foo was tempered
+    Foo.bar - patched in /Users/mattetti/Desktop/test.rb - Reopening Foo to add a couple
+    bar - patched in /Users/mattetti/Desktop/test.rb - Reopening Foo to add a couple
+    baz - patched in /Users/mattetti/Desktop/test.rb - Reopening Foo to add a couple
+    bar - patched in /Users/mattetti/Desktop/test.rb - Just to show it works
+
+== Note on Patches/Pull Requests
+ 
+* Fork the project.
+* Make your feature addition or bug fix.
+* Add tests for it. This is important so I don't break it in a
+  future version unintentionally.
+* Commit, do not mess with rakefile, version, or history.
+  (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
+* Send me a pull request. Bonus points for topic branches.
+
+== Copyright
+
+Copyright (c) 2010 Matt Aimonetti. See LICENSE for details.
