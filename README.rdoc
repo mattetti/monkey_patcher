@@ -43,6 +43,10 @@ In other words, this gem lets you keep track of modifications made on some "base
     baz - patched in /Users/mattetti/Desktop/test.rb - Reopening Foo to add a couple methods necessary for the README
     bar - patched in /Users/mattetti/Desktop/test.rb - Just to show it works
 
+== Misc
+
+The description and origin of the patch are cached in the modified class, if the same class is reopened without defining a new description and origin, the previously settings will be used. So if you see a method monkey patched 5 times in the same file when you really only monkey patched once, that means that the file was modified in other 'untraced' places.
+
 == Note on Patches/Pull Requests
  
 * Fork the project.
