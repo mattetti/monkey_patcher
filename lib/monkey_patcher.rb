@@ -12,7 +12,7 @@ module MonkeyPatcher
   class AppendedMethodInfo
     attr_accessor :name, :desc, :origin
     def to_s
-      "#{name} - patched in #{origin || 'an untraced file'} - #{desc[0..28]}"
+      "#{name} - patched in #{origin || 'an untraced file'} - #{desc}"
     end
   end
   
